@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>이해찬 ♥ 정다해 결혼식</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Arial', sans-serif;
+      background-color: #fff0f5;
+      color: #333;
+    }
+    header {
+      background: #ffc0cb;
+      padding: 2rem 1rem;
+      text-align: center;
+      color: white;
+    }
+    header h1 {
+      font-size: 2.5rem;
+      margin-bottom: 0.5rem;
+    }
+    header p {
+      font-size: 1.2rem;
+    }
+    .content {
+      padding: 2rem;
+      max-width: 800px;
+      margin: 0 auto;
+      background: white;
+      border-radius: 1rem;
+      box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+    }
+    .info {
+      margin-bottom: 2rem;
+    }
+    .info h2 {
+      color: #d63384;
+    }
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1rem;
+    }
+    .gallery img {
+      width: 100%;
+      border-radius: 0.5rem;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    }
+    .contact, .account, .guestbook {
+      background-color: #fff7fa;
+      padding: 1rem;
+      border-radius: 0.5rem;
+      margin-bottom: 1rem;
+      border: 1px solid #ffd6e0;
+    }
+    .guestbook-entries {
+      margin-bottom: 1rem;
+    }
+    .guestbook-entry {
+      padding: 0.5rem;
+      border-bottom: 1px solid #ffd6e0;
+    }
+    .guestbook-form input, .guestbook-form textarea {
+      width: 100%;
+      padding: 0.5rem;
+      margin-bottom: 0.5rem;
+      border: 1px solid #ccc;
+      border-radius: 0.5rem;
+    }
+    .guestbook-form button {
+      padding: 0.5rem 1rem;
+      background-color: #ff69b4;
+      border: none;
+      color: white;
+      border-radius: 0.5rem;
+      cursor: pointer;
+    }
+    .guestbook-form button:hover {
+      background-color: #ff85c1;
+    }
+    footer {
+      text-align: center;
+      padding: 1rem;
+      font-size: 0.9rem;
+      color: #888;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>이해찬 ♥ 정다해</h1>
+    <p>2025년 10월 25일 (토) 오전 11시 30분</p>
+    <p>위더스 웨딩홀 (광주광역시 서구 죽봉대로 153)</p>
+  </header>
+  <section class="content">
+    <div class="info">
+      <h2>소중한 분들을 저희 결혼식에 초대합니다.</h2>
+      <p>따뜻한 마음을 나눠줄 여러분을 기다립니다.</p>
+    </div>
+    <div class="gallery">
+      <img src="01.jpg" alt="photo 1">
+      <img src="02.jpg" alt="photo 2">
+      <img src="03.jpg" alt="photo 3">
+      <img src="04.jpg" alt="photo 4">
+      <img src="05.jpg" alt="photo 5">
+      <img src="06.jpg" alt="photo 6">
+      <img src="07.jpg" alt="photo 7">
+      <img src="08.jpg" alt="photo 8">
+      <img src="09.jpg" alt="photo 9">
+      <img src="10.jpg" alt="photo 10">
+    </div>
+    <div class="contact">
+      <h3>연락처</h3>
+      <p>신랑: 010-2210-4459</p>
+      <p>신부: 010-9444-4880</p>
+    </div>
+    <div class="account">
+      <h3>마음 전하실 곳</h3>
+      <p>신랑 이해찬 (하나은행) : 261-910747-94807</p>
+      <p>신부 정다해 (국민은행) : 9944-4488-056</p>
+    </div>
+    <div class="guestbook">
+      <h3>방명록</h3>
+      <div class="guestbook-entries" id="guestbookEntries">
+        <!-- Entries will appear here -->
+      </div>
+      <button onclick="showAllEntries()">전체보기</button>
+      <form class="guestbook-form" onsubmit="addEntry(event)">
+        <input type="text" id="name" placeholder="이름" required />
+        <input type="password" id="password" placeholder="비밀번호" required />
+        <textarea id="message" rows="3" placeholder="축하 메시지를 남겨주세요" required></textarea>
+        <button type="submit">글쓰기</button>
+      </form>
+    </div>
+  </section>
+  <footer>
+    © 2025 이해찬 ♥ 정다해 결혼식 초대장
+  </footer>
+  <script>
+    let entries = [];
+    let showAll = false;
+
+    function addEntry(e) {
+      e.preventDefault();
+      const name = document.getElementById('name').value;
+      const password = document.getElementById('password').value;
+      const message = document.getElementById('message').value;
+      if (name && password && message) {
+        entries.unshift({ name, message });
+        document.getElementById('name').value = '';
+        document.getElementById('password').value = '';
+        document.getElementById('message').value = '';
+        showAll = false;
+        renderEntries();
+      }
+    }
+
+    function renderEntries() {
+      const container = document.getElementById('guestbookEntries');
+      container.innerHTML = '';
+      const displayEntries = showAll ? entries : entries.slice(0, 3);
+      displayEntries.forEach(entry => {
+        const div = document.createElement('div');
+        div.className = 'guestbook-entry';
+        div.innerHTML = `<strong>${entry.name}</strong>: ${entry.message}`;
+        container.appendChild(div);
+      });
+    }
+
+    function showAllEntries() {
+      showAll = true;
+      renderEntries();
+    }
+  </script>
+</body>
+</html>
